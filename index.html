@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gnanapradeep's portfolio showcasing web development, UI/UX design, and creative technology projects">
+  <title>Gnanapradeep's Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    :root {
+      --primary: #1e3c72;
+      --accent: #facc15;
+      --bg-light: #f8fafc;
+      --text: #1a1a1a;
+      --card-bg: #ffffff;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --primary-dark: #e2e8f0;
+      --bg-dark: #1f2937;
+      --text-dark: #f8fafc;
+      --card-bg-dark: #374151;
+    }
+    body {
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg-light);
+      scroll-behavior: smooth;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    body.dark header, body.dark footer {
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
+    }
+    body.dark nav, body.dark #about, body.dark .project-card, body.dark #skills, body.dark #social {
+      background: var(--card-bg-dark);
+    }
+    body.dark nav a, body.dark .project-card a, body.dark #social a {
+      color: var(--primary-dark);
+    }
+    body.dark nav a:hover, body.dark .project-card a:hover, body.dark #social a:hover {
+      color: var(--accent);
+    }
+    body.dark #skills li {
+      background: var(--primary);
+      color: var(--text-dark);
+    }
+    body.dark #skills li:hover, body.dark #skills li:focus {
+      background: var(--accent);
+      color: var(--text);
+    }
+    header {
+      background: linear-gradient(135deg, var(--primary), #60a5fa);
+      color: var(--text-dark);
+      text-align: center;
+      padding: clamp(2rem, 6vw, 4rem);
+      box-shadow: var(--shadow);
+    }
+    header h1 {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: clamp(1rem, 3.5vw, 1.4rem);
+      opacity: 0.9;
+    }
+    nav {
+      background: var(--card-bg);
+      padding: clamp(0.8rem, 2vw, 1rem);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow);
+    }
+    nav a {
+      margin: clamp(0.5rem, 1.5vw, 0.8rem);
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      transition: color 0.3s ease;
+    }
+    nav a:hover, nav a:focus {
+      color: var(--accent);
+    }
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      padding: 0.5rem;
+    }
+    section {
+      padding: clamp(2rem, 5vw, 3rem);
+      max-width: clamp(300px, 90vw, 1200px);
+      margin: 0 auto;
+      animation: fadeIn 0.6s ease forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    #about {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: clamp(1.5rem, 4vw, 2rem);
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+    #about img {
+      border-radius: 50%;
+      width: clamp(100px, 20vw, 160px);
+      height: clamp(100px, 20vw, 160px);
+      object-fit: cover;
+      margin-bottom: 1rem;
+      border: 4px solid var(--accent);
+      loading: lazy;
+    }
+    #about a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    #about a:hover, #about a:focus {
+      color: var(--accent);
+    }
+    #projects .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(clamp(260px, 30vw, 300px), 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeIn 0.6s ease forwards;
+      animation-delay: calc(var(--index) * 0.1s);
+    }
+    .project-card:hover, .project-card:focus-within {
+      transform: scale(1.03);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    .project-card img {
+      width: 16%;
+      height: clamp(140px, 20vw, 180px);
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      loading: lazy;
+    }
+    .project-card a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .project-card a:hover, .project-card a:focus {
+      color: var(--accent);
+    }
+    #skills {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: clamp(1.5rem, 4vw, 2rem);
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+    #skills h2 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      margin-bottom: 1rem;
+    }
+    #skills ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+    #skills li {
+      background: var(--primary);
+      color: var(--text-dark);
+      padding: 0.5rem 1.25rem;
+      border-radius: 20px;
+      font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+      transition: transform 0.3s ease, background 0.3s ease;
+      tabindex: 0;
+      role: listitem;
+    }
+    #skills li:hover, #skills li:focus {
+      background: var(--accent);
+      color: var(--text);
+      transform: scale(1.1);
+    }
+    #social {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: clamp(1.5rem, 4vw, 2rem);
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    #social a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      margin: 0 clamp(0.5rem, 2vw, 1rem);
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      display: inline-block;
+    }
+    #social a:hover, #social a:focus {
+      color: var(--accent);
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--primary);
+      color: var(--text-dark);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .back-to-top:hover, .back-to-top:focus {
+      background: var(--accent);
+      color: var(--text);
+    }
+    footer {
+      background: var(--primary);
+      color: var(--text-dark);
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+      .project-card {
+        margin: 0 clamp(0.5rem, 2vw, 1rem);
+      }
+      #skills ul {
+        justify-content: flex-start;
+        gap: 0.5rem;
+      }
+      #social {
+        padding: clamp(1rem, 3vw, 1.5rem);
+      }
+      #social a {
+        display: block;
+        margin: 0.5rem 0;
+      }
+    }
+    @media (max-width: 480px) {
+      header h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+      header p { font-size: clamp(0.9rem, 3vw, 1rem); }
+      #about img {
+        width: clamp(80px, 18vw, 120px);
+        height: clamp(80px, 18vw, 120px);
+      }
+      .project-card img {
+        height: clamp(120px, 18vw, 140px);
+      }
+      .back-to-top {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+      }
+    }
+    @media (max-width: 320px) {
+      nav a, .theme-toggle {
+        font-size: 0.8rem;
+        margin: 0.3rem;
+      }
+      #skills li {
+        padding: 0.4rem 1rem;
+        font-size: 0.75rem;
+      }
+      #social a {
+        font-size: 0.8rem;
+      }
+    }
+    @media (min-width: 1440px) {
+      section {
+        max-width: 1400px;
+      }
+      .project-grid {
+        gap: 2rem;
+      }
+      #about, #skills, #social {
+        padding: clamp(2rem, 3vw, 2.5rem);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gnanapradeep</h1>
+      </header>
+  <nav>
+    <a href="#about" aria-label="Go to About section">About</a>
+    <a href="#projects" aria-label="Go to Projects section">Projects</a>
+    <a href="#skills" aria-label="Go to Skills section">Skills</a>
+    <a href="#social" aria-label="Go to Social section">Social</a>
+    <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </nav>
+  <section id="about">
+    <h2>About Me</h2>
+    <img src="profile.jpg" alt="Gnanappradeep's Profile Picture" loading="lazy">
+    <p>Hi, I'm Gnanappradeep! I'm a passionate web developer with a knack for crafting responsive, user-friendly websites. My work on projects like Prep Ace reflects my love for blending creativity with technology. I specialize in building intuitive UI/UX designs and dynamic web applications.And also to contribute effectively in a challenging environment within the CSE industry, utilizing my 
+technical skills and eagerness to learn, while continuously growing both personally and 
+professionally. </p>
+  </section>
+  
+  <section id="skills">
+    <h2>Technical Skills</h2>
+    <ul>
+      <li tabindex="0" role="listitem">HTML</li>
+      <li tabindex="0" role="listitem">CSS</li>
+      <li tabindex="0" role="listitem">JavaScript</li>
+      <li tabindex="0" role="listitem">PHP</li>
+      <li tabindex="0" role="listitem">MySQL</li>
+      <li tabindex="0" role="listitem">UI/UX Design</li>
+      <li tabindex="0" role="listitem">Responsive Web Design</li>
+      <li tabindex="0" role="listitem">Vue.js</li>
+      <li tabindex="0" role="listitem">C</li>
+      <li tabindex="0" role="listitem">Python</li>
+      <li tabindex="0" role="listitem">Java</li>
+      <li tabindex="0" role="listitem">C++</li>
+    </ul>
+    <h2>Soft Skills</h2>
+    <ul>
+      <li tabindex="0" role="listitem">Communication and Teamwork</li>
+      <li tabindex="0" role="listitem">Self-Motivated</li>
+      <li tabindex="0" role="listitem">Time Management</li>
+    </ul>
+    <h2>Languages Known</h2>
+    <ul>
+      <li tabindex="0" role="listitem">Telugu <span aria-label="Proficiency: 5 stars">★★★★★</span></li>
+      <li tabindex="0" role="listitem">English <span aria-label="Proficiency: 4 stars">★★★★</span></li>
+      <li tabindex="0" role="listitem">Hindi <span aria-label="Proficiency: 3 stars">★★★</span></li>
+      <li tabindex="0" role="listitem">Tamil <span aria-label="Proficiency: 1 star">★</span></li>
+    </ul>
+  </section>
+  <section id="projects">
+    <h2>My Projects</h2>
+    <div class="project-grid">
+      <div class="project-card" style="--index: 0;">
+        <img src="logo.png" alt="Prep Ace Project" loading="lazy">
+        <h3>Prep Ace</h3>
+        <p>A web platform for mock interviews and skill assessments, built with HTML, CSS, JavaScript, PHP, and MySQL.</p>
+        <a href="http://14.139.187.229:8081/mockinterview/welcome.php">View Project</a>
+      </div>
+    </div>
+  </section>
+  <section id="social">
+    <h2>Connect With Me</h2>
+    <p>
+      <a href="https://www.linkedin.com/in/gnana-pradeep-0535ab171/" target="_blank" rel="noopener">LinkedIn</a> |
+      <a href="https://github.com/bachupradeep99" target="_blank" rel="noopener">GitHub</a> |
+    </p>
+  </section>
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+  <footer>
+    <p>© 2025 Gnanapradeep. All rights reserved.</p>
+  </footer>
+  <script>
+    // Theme Toggle
+    const toggleBtn = document.querySelector('.theme-toggle');
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+      toggleBtn.textContent = '☀️';
+    }
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      toggleBtn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    // Back to Top
+    const backToTop = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('show', window.scrollY > 300);
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
